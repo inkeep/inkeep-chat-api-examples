@@ -108,3 +108,18 @@ These examples show how to set up the API calls that use Inkeep's contextual mod
 - `tsx`: TypeScript execution environment.
 
 - `typescript`: TypeScript language.
+
+## rag-mode
+
+The `rag` mode provides structured RAG (Retrieval-Augmented Generation) documents from Inkeep's knowledge base. This mode returns a structured response containing an array of documents with context, source information, and URLs.
+
+### openai-node-sdk-rag
+
+- `no-stream.ts`: Main entry point of the application. It demonstrates how to use the OpenAI Node SDK to create a structured output parsing request for RAG documents.
+- `rag-schema.ts`: Contains Zod schemas used for validating the RAG response structure.
+
+### vercel-ai-sdk-rag
+
+- `app/api/chat/route.ts`: Route handler implementation for the chat endpoint that uses the RAG API.
+- `app/page.tsx`: Page implementation that demonstrates how to use the RAG API with the Vercel AI SDK.
+- `lib/chat/inkeep-rag-schema.ts`: Contains Zod schemas used for validating the RAG response structure.
