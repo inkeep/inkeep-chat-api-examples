@@ -113,14 +113,14 @@ These examples show how to set up the API calls that use Inkeep's contextual mod
 
 The `rag` mode provides structured RAG (Retrieval-Augmented Generation) documents from Inkeep's knowledge base. This mode returns a structured response containing an array of documents with context, source information, and URLs.
 
-### openai-node-sdk-simple
+### openai-node-sdk
 
-- `index.ts`: Simple script that demonstrates how to use the OpenAI Node SDK to create a structured output parsing request for RAG documents.
+- `index.ts`: Script that demonstrates how to use the OpenAI Node SDK to create a structured output parsing request for RAG documents.
 - Uses Zod schemas for validating the RAG response structure.
 - Includes comprehensive error handling and response validation.
 
-### vercel-ai-sdk-simple
+### vercel-ai-sdk
 
-- `index.ts`: Simple script that demonstrates how to use raw fetch to retrieve and validate RAG documents.
+- `index.ts`: Script that demonstrates how to use raw fetch to retrieve and validate RAG documents.
 - Uses Zod schemas for validating the response structure.
 - Includes comprehensive error handling and response validation.
