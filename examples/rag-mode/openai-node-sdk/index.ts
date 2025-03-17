@@ -14,18 +14,32 @@ const client = new OpenAI({
 });
 
 // Define the RAG document schema
+const InkeepSourceContentSchema = z.object({
+  type: z.union([z.literal('text'), z.string()]),
+  media_type: z.union([z.literal('text/plain'), z.string()]).optional(),
+  text: z.string().optional(),
+  data: z.string().optional(),
+}).passthrough();
+
+const InkeepSourceSchema = z.object({
+  content: z.array(InkeepSourceContentSchema).optional(),
+  type: z.union([z.literal('content'), z.string()]).optional(),
+  media_type: z.string().optional(),
+  data: z.string().optional(),
+}).passthrough();
+
 const InkeepRAGDocumentSchema = z.object({
   type: z.string(),
-  source: z.record(z.any()),
+  source: InkeepSourceSchema,
   title: z.string().optional(),
   context: z.string().optional(),
   source_type: z.string().optional(),
   url: z.string().optional(),
-});
+}).passthrough();
 
 const InkeepRAGResponseSchema = z.object({
   content: z.array(InkeepRAGDocumentSchema),
-});
+}).passthrough();
 
 async function getRAGResponse() {
   try {
