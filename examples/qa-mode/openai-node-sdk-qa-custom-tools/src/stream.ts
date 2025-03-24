@@ -1,39 +1,5 @@
 import { client } from "./client";
 
-/**
- * parseMultipleJSONObjects
- * Given a string with multiple JSON objects in a row, extract and parse them all.
- */
-function parseMultipleJSONObjects(line: string): any[] {
-	const objects: any[] = [];
-	let bracketCount = 0;
-	let startIndex = 0;
-	let inObject = false;
-  
-	for (let i = 0; i < line.length; i++) {
-	  const char = line[i];
-  
-	  if (char === '{') {
-		bracketCount++;
-		if (!inObject) {
-		  // mark where the JSON object starts
-		  startIndex = i;
-		  inObject = true;
-		}
-	  } else if (char === '}') {
-		bracketCount--;
-		if (bracketCount === 0 && inObject) {
-		  // we found a balanced object
-		  const jsonString = line.substring(startIndex, i + 1);
-		  objects.push(JSON.parse(jsonString));
-		  inObject = false;
-		}
-	  }
-	}
-  
-	return objects;
-  }
-
 //
 // Single-tool configuration, from no-stream.ts
 //
@@ -180,23 +146,21 @@ async function getResponseFromAIMultiTool() {
   
 	try {
 	  // Attempt to parse multiple concatenated JSON objects
-	  const parsedObjects = parseMultipleJSONObjects(rawArgs);
-  
-	  for (const parsedObject of parsedObjects) {
+	  const args = JSON.parse(rawArgs);
+
 		switch (name) {
 		  case "questionAnswered":
-			console.log("Question answered tool call:", parsedObject);
+			console.log("Question answered tool call:", args);
 			break;
 		  case "identifyProduct":
-			console.log("Identify product tool call:", parsedObject);
+			console.log("Identify product tool call:", args);
 			break;
 		  case "documentationGap":
-			console.log("Documentation gap tool call:", parsedObject);
+			console.log("Documentation gap tool call:", args);
 			break;
 		  default:
-			console.log("Unknown tool call name:", name, parsedObject);
+			console.log("Unknown tool call name:", name, args);
 		}
-	  }
 	} catch (err) {
 	  console.error("Failed to parse multiple JSON objects in arguments:", rawArgs, err);
 	}
