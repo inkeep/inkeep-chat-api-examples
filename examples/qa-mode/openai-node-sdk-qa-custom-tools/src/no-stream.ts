@@ -86,6 +86,8 @@ async function getResponseFromAIMultiTool() {
 							"description": "The piece of information the user is looking for that is missing from the documentation. e.g. 'How to index a document in a vector database', 'Information about Version 3.11.8 of the API', 'How to use the API to detect if a user is a bot', 'No Documentation Gap'",
 						},
 					},
+					"required": ["documentationGap"],
+					"type": "object",
 				}
 			},
 			"type": "function",
