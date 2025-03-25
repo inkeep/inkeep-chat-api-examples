@@ -84,7 +84,7 @@ async function getRAGResponse() {
             console.log(`Title: ${doc.title || 'N/A'}`);
             console.log(`URL: ${doc.url || 'N/A'}`);
             console.log(`Context: ${doc.context || 'N/A'}`);
-            console.log(`Source Type: ${doc.source_type || 'N/A'}`);
+            console.log(`Record Type: ${doc.record_type || 'N/A'}`);
             console.log('---');
           });
           
