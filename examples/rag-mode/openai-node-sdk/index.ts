@@ -1,6 +1,7 @@
 import OpenAI from 'openai';
 import { z } from 'zod';
 import dotenv from 'dotenv';
+import { zodResponseFormat } from 'openai/helpers/zod';
 dotenv.config();
 
 if (!process.env.INKEEP_API_KEY) {
@@ -48,31 +49,22 @@ async function main() {
     messages: [
       { role: "user", content: "How do I get started?" },
     ],
+    response_format: zodResponseFormat(InkeepRAGResponseSchema, "rag"),
   });
 
-  const event = completion.choices[0].message.content;
-  const parsedContent = JSON.parse(event);
+  const validationResult = completion.choices[0].message.parsed;
 
-  console.log("Parsed RAG Response:");
-  console.log(JSON.stringify(parsedContent, null, 2));
+  console.log("Schema validation successful!");
 
-  // Validate against our schema
-  const validationResult = InkeepRAGResponseSchema.safeParse(parsedContent);
-  if (validationResult.success) {
-    console.log("Schema validation successful!");
-
-    // Process the RAG documents
-    validationResult.data.content.forEach((doc, index) => {
-      console.log(`Document ${index + 1}:`);
-      console.log(`Title: ${doc.title || 'N/A'}`);
-      console.log(`URL: ${doc.url || 'N/A'}`);
-      console.log(`Context: ${doc.context || 'N/A'}`);
-      console.log(`Record Type: ${doc.record_type || 'N/A'}`);
-      console.log('---');
+  // Process the RAG documents
+  validationResult.content.forEach((doc, index) => {
+    console.log(`Document ${index + 1}:`);
+    console.log(`Title: ${doc.title || 'N/A'}`);
+    console.log(`URL: ${doc.url || 'N/A'}`);
+    console.log(`Context: ${doc.context || 'N/A'}`);
+    console.log(`Record Type: ${doc.record_type || 'N/A'}`);
+    console.log('---');
     });
-  } else {
-    console.error("Schema validation failed:", validationResult.error);
-  }
 }
 
 // Invoke our async function
