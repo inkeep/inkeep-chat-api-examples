@@ -32,7 +32,7 @@ const InkeepRAGDocumentSchema = z.object({
   source: InkeepSourceSchema,
   title: z.string().optional(),
   context: z.string().optional(),
-  source_type: z.string().optional(),
+  record_type: z.string().optional(),
   url: z.string().optional(),
 }).passthrough();
 
