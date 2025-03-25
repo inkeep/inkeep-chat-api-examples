@@ -9,7 +9,7 @@ if (!process.env.INKEEP_API_KEY) {
 }
 
 const client = new OpenAI({
-  baseURL: 'http://localhost:8090/v1/',
+  baseURL: 'https://api.inkeep.com/v1/',
   apiKey: process.env.INKEEP_API_KEY,
 });
 
