@@ -34,7 +34,7 @@ const InkeepRAGDocumentSchema = z.object({
   title: z.string().optional(),
   context: z.string().optional(),
   record_type: z.string().optional(),
-  url: z.string().optional(),
+  url: z.string().optional().nullable(),
 }).passthrough();
 
 const InkeepRAGResponseSchema = z.object({
